@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Оплата</title>
+    <title>Замовлення риби</title>
     
     <style>
         /* Глобальный сброс и контейнер */
@@ -29,7 +29,6 @@
             border-radius: 5px;
         }
         
-        /* Заголовки */
         h2, h3, h4 {
             font-size: 1em;
             margin: 10px 0 5px 0; 
@@ -37,7 +36,6 @@
             display: block;
         }
 
-        /* Переключатель языка */
         .language-switcher {
             text-align: right;
             max-width: 400px;
@@ -57,7 +55,6 @@
             border-color: #007bff;
         }
         
-        /* Поля ввода */
         .input-group label {
             display: block;
             font-weight: bold;
@@ -71,7 +68,6 @@
             border-radius: 3px;
         }
 
-        /* Выбор рыбы */
         .fish-options-simple {
             padding: 10px;
             border: 1px solid #eee;
@@ -83,7 +79,6 @@
             cursor: pointer;
         }
         
-        /* Кнопка "Далее" */
         .submit-button {
             background-color: #007bff;
             color: white;
@@ -95,7 +90,6 @@
             border: none;
         }
 
-        /* Шаг 2: Оплата */
         .comment-box {
             border: 1px dashed #f0ad4e;
             padding: 10px;
@@ -117,12 +111,10 @@
             display: block;
         }
         
-        /* Общий текст в Шаге 2 */
         #paymentInfo p {
             margin: 8px 0;
         }
 
-        /* Кнопки копирования */
         #paymentInfo button.copy-button {
             padding: 6px 10px;
             font-size: 0.9em;
@@ -136,7 +128,6 @@
             cursor: pointer;
         }
         
-        /* Ссылка Viber */
         #viber-link-container {
             text-align: center;
             margin-top: 25px;
@@ -151,7 +142,6 @@
             font-weight: bold;
         }
         
-        /* Блок ссылки MAPS */
         #geo-warning {
             text-align: center;
             margin-top: 15px;
@@ -194,7 +184,7 @@
             <label><input type="radio" name="fish_choice" value="Carp_150" data-price="150" data-name_ru="Карп" data-name_ua="Короп"><span data-key="fish_carp_150">Короп 150 грн.</span></label>
             
             <label><input type="radio" name="fish_choice" value="PikePerch_170" data-price="170" data-name_ru="Судак" data-name_ua="Судак"><span data-key="fish_pikeperch_170">Судак 170 грн.</span></label>
-        </div>
+            </div>
 
         <button id="nextStepBtn" class="submit-button" data-key="btn_next">Далі (Перейти до оплати)</button>
     </div>
@@ -239,173 +229,75 @@
 </div>
 
 <script>
-    const translations = {
-        ru: {
-            title_step1: "Сделайте выбор и введите данные", label_name: "Имя:", label_surname: "Фамилия:",
-            title_fish_select: "🐠 Выберите рыбу:", 
-            fish_carp_150: "Карп 150 грн.",
-            fish_pikeperch_170: "Судак 170 грн.",
+    // Ждем полной загрузки документа
+    document.addEventListener('DOMContentLoaded', function() {
+        const translations = {
+            ru: {
+                title_step1: "Сделайте выбор и введите данные", label_name: "Имя:", label_surname: "Фамилия:",
+                title_fish_select: "🐠 Выберите рыбу:", 
+                fish_carp_150: "Карп 150 грн.",
+                fish_pikeperch_170: "Судак 170 грн.",
 
-            btn_next: "Далее (Перейти к оплате)", title_step2: " Перевод денег и комментарий",
-            label_card_num: "1. Номер карты для перевода:", 
-            btn_copy_card: "Карта", 
-            label_sum: "2. Сумма к оплате:", title_comment: "3. ОБЯЗАТЕЛЬНЫЙ КОММЕНТАРИЙ (скопировать и вставить при оплате!):",
-            btn_copy_comment: "Комментарий", 
-            label_recipient: "Получатель:",
-            viber_link_text: "Заказать через Viber", 
-            alert_empty_fields: "Пожалуйста, заполните Имя, Фамилию и выберите рыбу!", 
-            alert_copied_manual: "Текст выделен! Для копирования нажмите: Ctrl+C (Win) / Cmd+C (Mac) или долгое нажатие (Mobile)."
-        },
-        ua: {
-            title_step1: "Зробіть вибір та введіть дані", label_name: "Ім'я:", label_surname: "Прізвище:",
-            title_fish_select: "🐠 Оберіть рибу:", 
-            fish_carp_150: "Короп 150 грн.",
-            fish_pikeperch_170: "Судак 170 грн.",
+                btn_next: "Далее (Перейти к оплате)", title_step2: " Перевод денег и комментарий",
+                label_card_num: "1. Номер карты для перевода:", 
+                btn_copy_card: "Карта", 
+                label_sum: "2. Сумма к оплате:", title_comment: "3. ОБЯЗАТЕЛЬНЫЙ КОММЕНТАРИЙ (скопировать и вставить при оплате!):",
+                btn_copy_comment: "Комментарий", 
+                label_recipient: "Получатель:",
+                viber_link_text: "Заказать через Viber", 
+                alert_empty_fields: "Пожалуйста, заполните Имя, Фамилию и выберите рыбу!", 
+                alert_copied_manual: "Текст выделен! Для копирования нажмите: Ctrl+C (Win) / Cmd+C (Mac) или долгое нажатие (Mobile)."
+            },
+            ua: {
+                title_step1: "Зробіть вибір та введіть дані", label_name: "Ім'я:", label_surname: "Прізвище:",
+                title_fish_select: "🐠 Оберіть рибу:", 
+                fish_carp_150: "Короп 150 грн.",
+                fish_pikeperch_170: "Судак 170 грн.",
 
-            btn_next: "Далі (Перейти до оплати)", title_step2: " Переказ коштів та коментар",
-            label_card_num: "1. Номер картки для переказу:", 
-            btn_copy_card: "Картка", 
-            label_sum: "2. Сума до сплати:", title_comment: "3. ОБОВ'ЯЗКОВИЙ КОМЕНТАР (скопіювати та вставити при оплаті!):",
-            btn_copy_comment: "Коментар", 
-            label_recipient: "Отримувач:",
-            viber_link_text: "Замовити через Viber", 
-            alert_empty_fields: "Будь ласка, заповніть Ім'я, Прізвище та оберіть рибу!", 
-            alert_copied_manual: "Текст виділено! Для копіювання натисніть: Ctrl+C (Win) / Cmd+C (Mac) або довге натискання (Mobile)."
-        }
-    };
-    let currentLang = 'ua'; 
-    // Карта и Получатель
-    const cardNumber = '5457082527018902'; 
-    const recipientName = 'Клевцова Л В'; 
-
-    // Функция для выделения и копирования текста
-    function selectAndNotify(targetId, textToCopy) {
-        const targetElement = document.getElementById(targetId);
-        targetElement.value = textToCopy;
-        
-        // Временные стили для обеспечения фокуса
-        targetElement.style.position = 'absolute';
-        targetElement.style.top = '10px';
-        targetElement.style.left = '10px';
-        targetElement.style.zIndex = '9999';
-        targetElement.style.opacity = '0.01'; 
-
-        targetElement.focus();
-        targetElement.select(); 
-        
-        try {
-            // Пробуем скопировать
-            const success = document.execCommand('copy');
-            if (success) {
-                 alert(currentLang === 'ua' ? "Скопійовано!" : "Скопировано!");
-            } else {
-                 throw new Error("Copy failed.");
+                btn_next: "Далі (Перейти до оплати)", title_step2: " Переказ коштів та коментар",
+                label_card_num: "1. Номер картки для переказу:", 
+                btn_copy_card: "Картка", 
+                label_sum: "2. Сума до сплати:", title_comment: "3. ОБОВ'ЯЗКОВИЙ КОМЕНТАР (скопіювати та вставити при оплаті!):",
+                btn_copy_comment: "Коментар", 
+                label_recipient: "Отримувач:",
+                viber_link_text: "Замовити через Viber", 
+                alert_empty_fields: "Будь ласка, заповніть Ім'я, Прізвище та оберіть рибу!", 
+                alert_copied_manual: "Текст виділено! Для копіювання натисніть: Ctrl+C (Win) / Cmd+C (Mac) або довге натискання (Mobile)."
             }
-        } catch (err) {
-            // Если копирование не удалось (например, на мобильных устройствах)
-            alert(translations[currentLang]['alert_copied_manual']);
-        }
+        };
+        let currentLang = 'ua'; 
+        // Карта и Получатель
+        const cardNumber = '5457082527018902'; 
+        const recipientName = 'Клевцова Л В'; 
 
-        // Возвращаем элемент в скрытое состояние
-        setTimeout(() => {
-            targetElement.style.style = null; // Сброс временных стилей
-            targetElement.style.position = 'absolute';
-            targetElement.style.top = '-9999px';
-            targetElement.style.left = '-9999px';
-            targetElement.style.opacity = '0';
-        }, 100); 
-    }
-
-    // Функция обновления текстов при смене языка
-    function updateText(lang) {
-        currentLang = lang;
-        document.querySelectorAll('[data-key]').forEach(element => {
-            const key = element.getAttribute('data-key');
-            // Обновляем только те элементы, которые должны быть переведены
-            if (element.tagName !== 'INPUT' && translations[lang] && translations[lang][key]) { 
-                element.innerText = translations[lang][key]; 
-            }
-        });
-        
-        // Отдельно обновляем кнопки и ссылки
-        const nextButton = document.querySelector('.submit-button');
-        if (nextButton) { nextButton.innerText = translations[lang]['btn_next']; }
-        
-        document.querySelectorAll('.copy-button').forEach(btn => {
-            const key = btn.getAttribute('data-key');
-            if (translations[lang] && translations[lang][key]) {
-                btn.innerText = translations[lang][key];
-            }
-        });
-
-        document.querySelectorAll('.language-switcher button').forEach(button => {
-            if (button.getAttribute('data-lang') === lang) {
-                button.classList.add('active');
-            } else {
-                button.classList.remove('active');
-            }
-        });
-        
-        // Обновление текста Viber ссылки
-        const viberLink = document.querySelector('#viber-link-container a');
-        if (viberLink) {
-            viberLink.innerText = translations[lang]['viber_link_text'];
-        }
-    }
-
-    // 1. Обработчики переключения языка
-    document.querySelectorAll('.language-switcher button').forEach(button => {
-        button.addEventListener('click', function() {
-            updateText(this.getAttribute('data-lang'));
-        });
-    });
-    
-    // 2. Обработчик кнопки "Далее" (Переход к оплате)
-    document.getElementById('nextStepBtn').addEventListener('click', function() {
-        const firstName = document.getElementById('first_name').value.trim();
-        const lastName = document.getElementById('last_name').value.trim();
-        const selectedFish = document.querySelector('input[name="fish_choice"]:checked');
-        
-        if (firstName.length < 1 || lastName.length < 1 || !selectedFish) {
-            alert(translations[currentLang]['alert_empty_fields']);
-            return;
-        }
-
-        const fullName = `${firstName} ${lastName}`.trim();
-        const price = selectedFish.getAttribute('data-price');
-        const fishNameForComment = currentLang === 'ua' 
-            ? selectedFish.getAttribute('data-name_ua') 
-            : selectedFish.getAttribute('data-name_ru'); 
+        // Функция для выделения и копирования текста
+        function selectAndNotify(targetId, textToCopy) {
+            const targetElement = document.getElementById(targetId);
+            targetElement.value = textToCopy;
             
-        const transactionId = Math.random().toString(36).substring(2, 8).toUpperCase();
-        
-        const commentTemplate = currentLang === 'ua' 
-            ? `Оплата від ${fullName} за ${fishNameForComment}. ID: ${transactionId}` 
-            : `Оплата от ${fullName} за ${fishNameForComment}. ID: ${transactionId}`;
+            targetElement.style.position = 'absolute';
+            targetElement.style.top = '10px';
+            targetElement.style.left = '10px';
+            targetElement.style.zIndex = '9999';
+            targetElement.style.opacity = '0.01'; 
 
-        document.getElementById('paymentAmount').innerText = `${price} грн.`;
-        document.getElementById('paymentComment').innerText = commentTemplate;
-
-        document.getElementById('infoForm').style.display = 'none';
-        document.getElementById('paymentInfo').style.display = 'block';
-    });
-    
-    // 3. Обработчики копирования
-    document.querySelectorAll('.copy-button').forEach(button => {
-        button.addEventListener('click', function() {
-            const target = this.getAttribute('data-copy-target');
-            if (target === 'card') {
-                selectAndNotify('cardCopyTarget', cardNumber); 
-            } else if (target === 'comment') {
-                selectAndNotify('commentCopyTarget', document.getElementById('paymentComment').innerText); 
+            targetElement.focus();
+            targetElement.select(); 
+            
+            try {
+                const success = document.execCommand('copy');
+                if (success) {
+                     alert(currentLang === 'ua' ? "Скопійовано!" : "Скопировано!");
+                } else {
+                     throw new Error("Copy failed.");
+                }
+            } catch (err) {
+                alert(translations[currentLang]['alert_copied_manual']);
             }
-        });
-    });
 
-    // Инициализация
-    document.getElementById('recipientName').innerText = recipientName;
-    document.getElementById('cardNumberDisplay').innerText = cardNumber.match(/.{1,4}/g).join(' '); // Форматируем номер карты
-    updateText('ua'); 
-</script>
-</body>
-</html>
+            // Убираем элементы из видимой области
+            setTimeout(() => {
+                targetElement.style.style = null; 
+                targetElement.style.position = 'absolute';
+                targetElement.style.top = '-9999px';
+                targetElement.style.left = '-9999px';
