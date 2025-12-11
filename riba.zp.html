@@ -301,3 +301,100 @@
                 targetElement.style.position = 'absolute';
                 targetElement.style.top = '-9999px';
                 targetElement.style.left = '-9999px';
+                targetElement.style.opacity = '0';
+            }, 100); 
+        }
+
+        // Функция обновления текстов при смене языка
+        function updateText(lang) {
+            currentLang = lang;
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (element.tagName !== 'INPUT' && translations[lang] && translations[lang][key]) { 
+                    element.innerText = translations[lang][key]; 
+                }
+            });
+            
+            const nextButton = document.querySelector('#nextStepBtn');
+            if (nextButton) { nextButton.innerText = translations[lang]['btn_next']; }
+            
+            document.querySelectorAll('.copy-button').forEach(btn => {
+                const key = btn.getAttribute('data-key');
+                if (translations[lang] && translations[lang][key]) {
+                    btn.innerText = translations[lang][key];
+                }
+            });
+
+            document.querySelectorAll('.language-switcher button').forEach(button => {
+                if (button.getAttribute('data-lang') === lang) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+            
+            const viberLink = document.querySelector('#viber-link-container a');
+            if (viberLink) {
+                viberLink.innerText = translations[lang]['viber_link_text'];
+            }
+        }
+
+        // 1. Обработчики переключения языка
+        document.querySelectorAll('.language-switcher button').forEach(button => {
+            button.addEventListener('click', function() {
+                updateText(this.getAttribute('data-lang'));
+            });
+        });
+        
+        // 2. Обработчик кнопки "Далее" (Переход к оплате)
+        document.getElementById('nextStepBtn').addEventListener('click', function() {
+            const firstName = document.getElementById('first_name').value.trim();
+            const lastName = document.getElementById('last_name').value.trim();
+            const selectedFish = document.querySelector('input[name="fish_choice"]:checked');
+            
+            if (firstName.length < 1 || lastName.length < 1 || !selectedFish) {
+                alert(translations[currentLang]['alert_empty_fields']);
+                return;
+            }
+
+            const fullName = `${firstName} ${lastName}`.trim();
+            const price = selectedFish.getAttribute('data-price');
+            const fishNameForComment = currentLang === 'ua' 
+                ? selectedFish.getAttribute('data-name_ua') 
+                : selectedFish.getAttribute('data-name_ru'); 
+                
+            // Генерируем простой ID транзакции
+            const transactionId = Math.random().toString(36).substring(2, 8).toUpperCase();
+            
+            const commentTemplate = currentLang === 'ua' 
+                ? `Оплата від ${fullName} за ${fishNameForComment}. ID: ${transactionId}` 
+                : `Оплата от ${fullName} за ${fishNameForComment}. ID: ${transactionId}`;
+
+            document.getElementById('paymentAmount').innerText = `${price} грн.`;
+            document.getElementById('paymentComment').innerText = commentTemplate;
+
+            document.getElementById('infoForm').style.display = 'none';
+            document.getElementById('paymentInfo').style.display = 'block';
+        });
+        
+        // 3. Обработчики копирования
+        document.querySelectorAll('.copy-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const target = this.getAttribute('data-copy-target');
+                if (target === 'card') {
+                    selectAndNotify('cardCopyTarget', cardNumber); 
+                } else if (target === 'comment') {
+                    selectAndNotify('commentCopyTarget', document.getElementById('paymentComment').innerText); 
+                }
+            });
+        });
+
+        // Инициализация
+        document.getElementById('recipientName').innerText = recipientName;
+        document.getElementById('cardNumberDisplay').innerText = cardNumber.match(/.{1,4}/g).join(' '); 
+        updateText('ua'); // Устанавливаем украинский по умолчанию
+    });
+</script>
+
+</body>
+</html>
