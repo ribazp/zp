@@ -32,8 +32,8 @@
         /* Опции (Шаг 2) */
         .options-list { margin-bottom: 15px; }
         .options-list label { display: block; margin-bottom: 10px; cursor: pointer; font-size: 1.05em; }
-        .address-box { margin-top: 10px; padding: 10px; background: #f0f8ff; border: 1px dashed #007bff; display: none; }
-        .map-link { display: inline-block; margin-top: 5px; color: #007bff; text-decoration: underline; font-size: 0.9em; }
+        .address-box { margin-top: 10px; padding: 10px; background: #f0f8ff; border: 1px dashed #007bff; }
+        .geo-reminder { margin-top: 10px; padding: 8px; background: #fffdf5; border: 1px solid #f0ad4e; font-size: 0.9em; color: #555; }
 
         /* Кнопки */
         .submit-button { background-color: #007bff; color: white; padding: 12px; border-radius: 4px; width: 100%; border: none; font-size: 1.1em; cursor: pointer; margin-top: 10px; }
@@ -45,7 +45,7 @@
         .comment-box { border: 2px dashed #f0ad4e; padding: 10px; background: #fffdf5; margin: 15px 0; }
         .comment-text { font-weight: bold; color: #d9534f; word-break: break-word; }
         
-        /* Ссылка Viber */
+        /* Ссылка Viber (внизу) */
         #viber-link-container { text-align: center; padding: 15px; background: #f1f1f1; }
         #viber-link-container a { color: #665eff; font-weight: bold; font-size: 1.1em; text-decoration: none; border-bottom: 2px solid #665eff; }
 
@@ -91,7 +91,7 @@
         <h2 data-key="title_step2">2. Налаштування та Доставка</h2>
         
         <div class="options-list">
-            <label><input type="checkbox" id="opt_clean"> 🧹 <span data-key="opt_clean">Почистити (Безкоштовно)</span></label>
+            <label><input type="checkbox" id="opt_clean"> 🧹 <span data-key="opt_clean">Почистити</span></label>
             <label><input type="checkbox" id="opt_cut"> 🔪 <span data-key="opt_cut">Порізати шматочками</span></label>
             
             <hr style="border: 0; border-top: 1px solid #eee; margin: 10px 0;">
@@ -101,13 +101,13 @@
                 🚚 <span data-key="opt_delivery">Доставка по місту</span>
             </label>
             
-            <div id="addressContainer" class="address-box">
+            <div id="addressContainer" class="address-box"> 
                 <label data-key="label_address">Ваша адреса (Вулиця, дім):</label>
-                <input type="text" id="delivery_address" placeholder="...">
+                <input type="text" id="delivery_address" placeholder="Наприклад: вул. Соборна 5">
                 
-                <a href="https://www.google.com/maps/search/?api=1&query=Запоріжжя" target="_blank" class="map-link" data-key="link_maps">
-                    📍 Відкрити Google Карти (для пошуку адреси)
-                </a>
+                <div class="geo-reminder" data-key="geo_reminder">
+                   💡 Для 100% точності, ви можете надіслати свою **геолокацію** у Viber після оплати.
+                </div>
             </div>
         </div>
 
@@ -147,7 +147,7 @@
 
     <div id="viber-link-container">
         <a href="https://invite.viber.com/?g2=AQAvK3qdePG0wkvIBjEACznNoyED7TDWDQur53X8axv6jaNNhELS6giOqf%2FvrrfX" target="_blank" data-key="link_viber">
-            💬 Замовити через Viber
+            💬 Написати у групу Viber
         </a>
     </div>
 
@@ -163,15 +163,15 @@
             title_fish: "🐠 Выберите рыбу:", fish_carp: "Карп (150 грн)", fish_sudak: "Судак (170 грн)",
             btn_next_options: "Далее: Настройки и Доставка",
             
-            title_step2: "2. Услуги и Доставка", opt_clean: "Почистить (Бесплатно)", opt_cut: "Порезать кусочками",
+            title_step2: "2. Услуги и Доставка", opt_clean: "Почистить", opt_cut: "Порезать кусочками",
             opt_delivery: "Доставка по городу", label_address: "Ваш адрес (Улица, дом):",
-            link_maps: "📍 Открыть Google Карты (посмотреть адрес)",
+            geo_reminder: "💡 Для 100% точности, вы можете отправить свою **геолокацию** в Viber после оплаты.",
             btn_next_pay: "Далее: К оплате", btn_back: "🔙 Назад",
 
             title_step3: "3. Оплата и Комментарий", label_card: "Номер карты:", label_sum: "Сумма к оплате:",
             title_comment: "ОБЯЗАТЕЛЬНЫЙ КОММЕНТАРИЙ (копировать в банк!):", btn_copy: "Копировать",
             btn_copy_comment: "Копировать комментарий", recipient: "Получатель: Клевцова Л В",
-            link_viber: "💬 Заказать через Viber",
+            link_viber: "💬 Написать в группу Viber",
             
             alert_name: "Пожалуйста, введите Имя и Фамилию!", alert_fish: "Пожалуйста, выберите рыбу!",
             alert_address: "Вы выбрали доставку, но не указали адрес!", alert_copied: "Скопировано!"
@@ -181,15 +181,15 @@
             title_fish: "🐠 Оберіть рибу:", fish_carp: "Короп (150 грн)", fish_sudak: "Судак (170 грн)",
             btn_next_options: "Далі: Додаткові послуги",
             
-            title_step2: "2. Налаштування та Доставка", opt_clean: "Почистити (Безкоштовно)", opt_cut: "Порізати шматочками",
+            title_step2: "2. Налаштування та Доставка", opt_clean: "Почистити", opt_cut: "Порізати шматочками",
             opt_delivery: "Доставка по місту", label_address: "Ваша адреса (Вулиця, дім):",
-            link_maps: "📍 Відкрити Google Карти (знайти адресу)",
+            geo_reminder: "💡 Для 100% точності, ви можете надіслати свою **геолокацію** у Viber після оплати.",
             btn_next_pay: "Далі: До оплати", btn_back: "🔙 Назад",
 
             title_step3: "3. Оплата та Коментар", label_card: "Номер картки:", label_sum: "Сума до сплати:",
             title_comment: "ОБОВ'ЯЗКОВИЙ КОМЕНТАР (вставити при оплаті!):", btn_copy: "Копіювати",
             btn_copy_comment: "Копіювати коментар", recipient: "Отримувач: Клевцова Л В",
-            link_viber: "💬 Замовити через Viber",
+            link_viber: "💬 Написати у групу Viber",
 
             alert_name: "Будь ласка, введіть Ім'я та Прізвище!", alert_fish: "Будь ласка, оберіть рибу!",
             alert_address: "Ви обрали доставку, але не вказали адресу!", alert_copied: "Скопійовано!"
@@ -221,8 +221,14 @@
     function toggleAddress() {
         const isDelivery = document.getElementById('opt_delivery').checked;
         const box = document.getElementById('addressContainer');
+        // Отображение/Скрытие блока адреса
         box.style.display = isDelivery ? 'block' : 'none';
     }
+    
+    // Инициализация. Скрываем блок адреса при загрузке.
+    document.addEventListener('DOMContentLoaded', () => {
+        toggleAddress();
+    });
 
     function showStep(stepId) {
         document.getElementById('step1').classList.add('hidden');
@@ -243,10 +249,13 @@
     }
 
     function goToStep3() {
-        // Проверка адреса если выбрана доставка
+        // Проверка: Если выбрана доставка, адрес должен быть заполнен
         if(document.getElementById('opt_delivery').checked) {
             const addr = document.getElementById('delivery_address').value.trim();
-            if(!addr) { alert(translations[currentLang].alert_address); return; }
+            if(!addr) { 
+                alert(translations[currentLang].alert_address); 
+                return; // Остановит переход
+            }
         }
         
         generateFinalData();
@@ -314,6 +323,5 @@
     setLang('ua');
 
 </script>
-
 </body>
 </html>
